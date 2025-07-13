@@ -9,7 +9,6 @@ export class DatabaseService {
     this.client
       .setEndpoint(CONFIG.appwrite.url)
       .setProject(CONFIG.appwrite.projectId);
-    // .setKey(CONFIG.appwrite.apiKey);
 
     this.databases = new Databases(this.client);
   }
