@@ -1,23 +1,26 @@
 {
-  "name": "bet-monitor",
+  "name": "estrobet-scrapper",
   "version": "1.0.0",
-  "description": "Monitor EstrobBet for new betting suggestions and send email notifications",
-  "main": "bet-monitor.js",
+  "description": "Automated bet scraper that monitors EstrobBet for new betting tips",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node bet-monitor.js start",
-    "test-email": "node bet-monitor.js test-email",
-    "check-once": "node bet-monitor.js check-once"
+    "start": "node index.js",
+    "test-email": "node index.js test-email",
+    "check": "node index.js check-once"
   },
   "dependencies": {
+    "appwrite": "^18.1.1",
     "axios": "^1.10.0",
     "cheerio": "^1.1.0",
     "dotenv": "^17.0.0",
     "nodemailer": "^7.0.4"
   },
   "keywords": [
+    "scraper",
     "betting",
-    "monitor",
-    "notification"
+    "nodejs",
+    "automation"
   ],
   "author": "Mostafa Rakib",
   "license": "MIT"

@@ -1,0 +1,44 @@
+name: Bet Scraper
+
+on:
+  schedule:
+    # Run every 30 minutes
+    - cron: "*/30 * * * *"
+  workflow_dispatch: # Allow manual trigger
+  push:
+    branches: [main] # Run on push to main for testing
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run bet scraper
+        env:
+          URL: ${{ secrets.URL }}
+          INTERVAL_TIME: ${{ secrets.INTERVAL_TIME }}
+          EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+          APPWRITE_ENDPOINT: ${{ secrets.APPWRITE_ENDPOINT }}
+          APPWRITE_PROJECT_ID: ${{ secrets.APPWRITE_PROJECT_ID }}
+          APPWRITE_API_KEY: ${{ secrets.APPWRITE_API_KEY }}
+          APPWRITE_DATABASE_ID: ${{ secrets.APPWRITE_DATABASE_ID }}
+          APPWRITE_COLLECTION_ID: ${{ secrets.APPWRITE_COLLECTION_ID }}
+        run: node index.js check-once
+
+      - name: Log completion
+        run: echo "Bet scraper completed at $(date)"
