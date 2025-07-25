@@ -16,7 +16,7 @@ class MailerService {
     let subject = "🎯 EstrobBet Update!";
     let htmlContent = "";
 
-    if (betData.matchInfo && !betData.hasNoBasicTips) {
+    if (betData.matchInfo) {
       // New bet available
       subject = "🎯 New Bet Suggestion Available!";
       htmlContent = `
@@ -36,30 +36,12 @@ class MailerService {
                     }
                 </div>
             `;
-    } else if (betData.hasNoBasicTips) {
-      // No basic tips available
-      subject = "📊 EstrobBet: No Basic Tips Today";
-      htmlContent = `
-      <h2>No Basic Tips Available Today</h2>
-      <div style="background-color: #fff3cd; padding: 15px; border-radius: 8px; margin: 10px 0;">
-        <p>🔒 No basic tips are available today. Only premium content for Estro Experts members.</p>
-      </div>
-    `;
     } else {
       // General update
       htmlContent = `
                 <h2>EstrobBet Content Updated</h2>
                 <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin: 10px 0;">
                     <p>The betting page has been updated. Please check the website for details.</p>
-                </div>
-            `;
-    }
-    // Add V-tab content if available
-    if (betData.vTabContent && betData.vTabContent !== betData.freeBetContent) {
-      htmlContent += `
-                <div style="background-color: #e8f5e8; padding: 15px; border-radius: 8px; margin: 10px 0;">
-                    <h3 style="color: #2d5a2d;">📋 Additional Tips</h3>
-                    <p><em>Check the V-tab section for more betting options.</em></p>
                 </div>
             `;
     }
@@ -74,7 +56,7 @@ class MailerService {
       from: CONFIG.email.user,
       to: CONFIG.email.to,
       subject: subject,
-      htmlContent: htmlContent,
+      html: htmlContent,
     };
 
     try {
