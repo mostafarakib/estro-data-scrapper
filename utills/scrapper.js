@@ -21,19 +21,17 @@ class ScraperService {
       // Extract data from the free bet of the day tab
       const freeBetTab = $("#free-bet-of-the-day-tab");
       const freeBetContent = freeBetTab.text().trim();
-
-      // Extract specific bet details from the free bet tab
-      const freeBetHtml = freeBetTab.html() || "";
       let matchInfo = "";
       let matchTip = "";
       let matchOdds = "";
       let matchNames = "";
 
-      if (freeBetContent) {
+      if (freeBetTab.length > 0) {
         // Extract ONLY the match names from the free bet tab (first <b> tag)
         const firstBoldElement = freeBetTab.find("b").first();
         matchNames = firstBoldElement.text().trim();
 
+        const freeBetContent = freeBetTab.text().trim();
         const tipRegex = /Match Tip:\s*([\s\S]*?)(?=Match Odds:|\n|$)/i;
         const oddsRegex = /Match Odds:\s*([\s\S]*?)(?=oddsResults:|\n|$)/i;
 
@@ -54,32 +52,19 @@ class ScraperService {
         }
       }
 
-      // Also check for "No Basic Tips" message in other-markets-tab
-      const otherMarketsTab = $("#other-markets-tab");
-      const hasNoBasicTips = otherMarketsTab.text().includes("(No Basic Tips)");
-
-      // Check V-tab for additional bets
-      const vTabContent = $("#V-tab").text().trim();
-
       const betData = {
         freeBetContent: freeBetContent,
         matchNames: matchNames,
         matchInfo: matchInfo,
         matchTip: matchTip,
         matchOdds: matchOdds,
-        hasNoBasicTips: hasNoBasicTips,
-        vTabContent: vTabContent,
         timestamp: new Date().toISOString(),
-        // Get the full HTML of the tabs for detailed comparison
-        fullHtml: $(".eael-tabs-content").html(),
       };
 
       // Create a hash of the main content to detect changes
-      const contentForHash =
-        freeBetContent + vTabContent + hasNoBasicTips.toString();
       const contentHash = crypto
         .createHash("md5")
-        .update(contentForHash)
+        .update(freeBetContent)
         .digest("hex");
 
       betData.hash = contentHash;
@@ -89,7 +74,6 @@ class ScraperService {
       console.log(`   Match: ${matchNames || "Not found"}`);
       console.log(`   Tip: ${matchTip || "Not found"}`);
       console.log(`   Odds: ${matchOdds || "Not found"}`);
-      console.log(`   No Basic Tips: ${hasNoBasicTips}`);
       console.log(`   Hash: ${contentHash}`);
 
       return betData;

@@ -43,11 +43,7 @@ export class DatabaseService {
           matchInfo: betData.matchInfo,
           matchTip: betData.matchTip,
           matchOdds: betData.matchOdds,
-          freeBetContent: betData.freeBetContent,
-          hasNoBasicTips: betData.hasNoBasicTips,
-          vTabContent: betData.vTabContent,
           timestamp: betData.timestamp,
-          fullHtml: betData.fullHtml,
         }
       );
 
