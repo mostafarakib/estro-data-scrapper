@@ -1,44 +1,44 @@
-# name: Data Scraper
+name: Data Scraper
 
-# on:
-#   schedule:
-#     # Run every 60 minutes
-#     - cron: "0 6-18 * * *"
-#   workflow_dispatch: # Allow manual trigger
-#   push:
-#     branches: [main] # Run on push to main for testing
+on:
+  # schedule:
+  # Run every 60 minutes
+  # - cron: "0 6-18 * * *"
+  workflow_dispatch: # Allow manual trigger
+  # push:
+  # branches: [main] # Run on push to main for testing
 
-# jobs:
-#   scrape:
-#     runs-on: ubuntu-latest
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: "18"
-#           cache: "npm"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
 
-#       - name: Install dependencies
-#         run: npm install
+      - name: Install dependencies
+        run: npm install
 
-#       - name: Run the scraper
-#         run: npm run start
-#         env:
-#           URL: ${{ secrets.URL }}
-#           INTERVAL_TIME: ${{ secrets.INTERVAL_TIME }}
-#           EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE }}
-#           EMAIL_USER: ${{ secrets.EMAIL_USER }}
-#           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-#           EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
-#           APPWRITE_URL: ${{ secrets.APPWRITE_URL }}
-#           APPWRITE_PROJECT_ID: ${{ secrets.APPWRITE_PROJECT_ID }}
-#           APPWRITE_API_KEY: ${{ secrets.APPWRITE_API_KEY }}
-#           APPWRITE_DATABASE_ID: ${{ secrets.APPWRITE_DATABASE_ID }}
-#           APPWRITE_COLLECTION_ID: ${{ secrets.APPWRITE_COLLECTION_ID }}
+      - name: Run the scraper
+        run: npm run start
+        env:
+          URL: ${{ secrets.URL }}
+          INTERVAL_TIME: ${{ secrets.INTERVAL_TIME }}
+          EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+          APPWRITE_URL: ${{ secrets.APPWRITE_URL }}
+          APPWRITE_PROJECT_ID: ${{ secrets.APPWRITE_PROJECT_ID }}
+          APPWRITE_API_KEY: ${{ secrets.APPWRITE_API_KEY }}
+          APPWRITE_DATABASE_ID: ${{ secrets.APPWRITE_DATABASE_ID }}
+          APPWRITE_COLLECTION_ID: ${{ secrets.APPWRITE_COLLECTION_ID }}
 
-#       - name: Log completion
-#         run: echo "Bet scraper completed at $(date)"
+      - name: Log completion
+        run: echo "Bet scraper completed at $(date)"
